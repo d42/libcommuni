@@ -73,6 +73,7 @@ void tst_IrcLagTimer::testLag()
     QMetaObject::invokeMethod(&timer, "_irc_pingServer");
     QVERIFY(clientSocket->waitForBytesWritten(1000));
     QVERIFY(serverSocket->waitForReadyRead(1000));
+    QCOMPARE(lagSpy.count(), ++lagCount);
 
     QRegExp rx("PING communi/(\\d+)");
     QString written = QString::fromUtf8(serverSocket->readAll());
